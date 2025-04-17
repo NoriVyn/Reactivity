@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './TodoList.css';
 import Icon from './assets/icon.webp'
 
 
 function TodoList(){
-
-    const [list,setList] = useState([]);
+    const listStorage = localStorage.getItem('list')
+    const [list,setList] = useState(listStorage ? JSON.parse(listStorage) : []);
     const [newItem,setNewItem]= useState("");
+
+    useEffect(()=> {
+        localStorage.setItem('list', JSON.stringify(list));
+    },[list])
 
         function addItem(form){
             form.preventDefault();
@@ -29,7 +33,10 @@ function TodoList(){
             listAux.splice(index,1);
             setList(listAux);
         }
-
+        
+        function deletedAll(){
+            setList([]);
+        }
 
     return (
         <div>
@@ -59,15 +66,14 @@ function TodoList(){
                     <span onClick={()=>{clicked(index)}}>{item.text}</span>
                     <button onClick={()=>{deleteed(index)}} className="del">Delete</button>
                 </div>
-
                 ))
                 }
-           
-                <button className="deleteAll">Delete all tasks</button>
+           {
+                     list.length > 0 &&
+                    <button  onClick={()=>{deletedAll()}} className="deleteAll">Delete all tasks</button>
+           }
                 </div>
             </div>
-
-
         </div>
     )
 }
