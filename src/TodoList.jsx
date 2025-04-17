@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import './TodoList.css';
-import { renderToString } from "react-dom/server";
 import Icon from './assets/icon.webp'
-import { useLinkClickHandler } from "react-router-dom";
 
 
 function TodoList(){
@@ -26,7 +24,11 @@ function TodoList(){
             setList(listAux);
         }
 
-
+        function deleteed(index){
+            const listAux=[...list];
+            listAux.splice(index,1);
+            setList(listAux);
+        }
 
 
     return (
@@ -52,10 +54,10 @@ function TodoList(){
 
                     <div 
                     key={index}
-                    className={item.isCompleted ? "Item Completed" : "item" 
+                    className={item.isCompleted ? "item complete" : "item" 
                     }>
                     <span onClick={()=>{clicked(index)}}>{item.text}</span>
-                    <button className="del">Delete</button>
+                    <button onClick={()=>{deleteed(index)}} className="del">Delete</button>
                 </div>
 
                 ))
