@@ -11,12 +11,13 @@ function TodoList(){
             <div className="todolist">
             <div className="item">
                     <span>Task</span>
-                    <button>Delete</button>
+                    <button className="del">Delete</button>
                 </div>
                 <div className="item complete">
                     <span>Task</span>
-                    <button>Delete</button>
+                    <button className="del">Delete</button>
                 </div>
+                <button className="deleteAll">Delete all tasks</button>
             </div>
 
 
